@@ -1,153 +1,325 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Personalised Poster</title>
 
-<!-- Mogra Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mogra&display=swap" rel="stylesheet">
+
+<!-- =====================================================
+     MOGRA FONT
+===================================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Mogra&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
 *{
     box-sizing:border-box;
 }
 
+
 body{
+
     margin:0;
+
     font-family:Arial,sans-serif;
+
     background:#f3f3f3;
+
     color:#222;
+
 }
+
 
 .container{
+
     max-width:600px;
+
     margin:auto;
+
     padding:18px;
+
 }
+
+
+/* =====================================================
+   TITLE
+===================================================== */
 
 h1{
+
     text-align:center;
+
     margin:5px 0 18px;
+
     font-size:24px;
+
 }
+
+
+/* =====================================================
+   CONTROL BOX
+===================================================== */
 
 .control-box{
+
     background:white;
+
     padding:18px;
+
     border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.12);
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.12);
+
     margin-bottom:20px;
+
 }
 
+
 label{
+
     display:block;
+
     font-weight:bold;
+
     margin:12px 0 6px;
+
 }
+
 
 input[type="text"],
 input[type="file"]{
+
     width:100%;
+
     padding:12px;
+
     border:1px solid #ccc;
+
     border-radius:8px;
+
     font-size:16px;
+
 }
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 button{
+
     width:100%;
+
     padding:13px;
+
     margin-top:12px;
+
     border:0;
+
     border-radius:9px;
+
     font-size:17px;
+
     font-weight:bold;
+
     cursor:pointer;
+
 }
+
 
 #downloadVideo{
+
     background:#e85d04;
+
     color:white;
+
 }
+
 
 #downloadPoster{
+
     background:#333;
+
     color:white;
+
 }
+
 
 button:disabled{
+
     opacity:.55;
+
     cursor:not-allowed;
+
 }
+
+
+/* =====================================================
+   POSTER
+===================================================== */
 
 .poster-wrapper{
+
     width:100%;
+
     background:white;
+
     padding:0;
+
     border-radius:5px;
+
     overflow:hidden;
-    box-shadow:0 5px 25px rgba(0,0,0,.2);
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.2);
+
 }
+
 
 #posterCanvas{
+
     width:100%;
+
     height:auto;
+
     display:block;
+
 }
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
 
 .progress{
+
     display:none;
+
     margin-top:15px;
+
     text-align:center;
+
     font-weight:bold;
+
 }
+
 
 .progress-bar{
+
     width:100%;
+
     height:10px;
+
     background:#ddd;
+
     border-radius:10px;
+
     overflow:hidden;
+
     margin-top:8px;
+
 }
+
 
 .progress-fill{
+
     height:100%;
+
     width:0%;
+
     background:#e85d04;
+
     transition:width:.1s linear;
+
 }
+
+
+/* =====================================================
+   NOTE
+===================================================== */
 
 .note{
+
     font-size:13px;
+
     color:#666;
+
     text-align:center;
+
     margin-top:10px;
+
     line-height:1.5;
+
 }
 
+
 #ffmpegStatus{
+
     font-size:13px;
+
     color:#666;
+
     text-align:center;
+
     margin-top:8px;
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-<h1>તમારું Personalised Poster બનાવો</h1>
+
+<h1>
+    તમારું Personalised Poster બનાવો
+</h1>
+
 
 <div class="control-box">
 
-<label>તમારો ફોટો Upload કરો</label>
+
+<!-- =====================================================
+     PHOTO
+===================================================== -->
+
+<label>
+    તમારો ફોટો Upload કરો
+</label>
+
 
 <input
     type="file"
@@ -155,7 +327,15 @@ button:disabled{
     accept="image/*"
 >
 
-<label>તમારું નામ</label>
+
+<!-- =====================================================
+     NAME
+===================================================== -->
+
+<label>
+    તમારું નામ
+</label>
+
 
 <input
     type="text"
@@ -163,7 +343,15 @@ button:disabled{
     placeholder="તમારું નામ લખો"
 >
 
-<label>પ્રવાસમાં જવાનું ગામ</label>
+
+<!-- =====================================================
+     VILLAGE
+===================================================== -->
+
+<label>
+    પ્રવાસમાં જવાનું ગામ
+</label>
+
 
 <input
     type="text"
@@ -171,62 +359,108 @@ button:disabled{
     placeholder="ગામનું નામ લખો"
 >
 
-<button id="downloadVideo">
+
+<!-- =====================================================
+     VIDEO BUTTON
+===================================================== -->
+
+<button
+    id="downloadVideo"
+>
+
 🎬 Download Poster MP4 Video
+
 </button>
 
-<button id="downloadPoster">
+
+<!-- =====================================================
+     IMAGE BUTTON
+===================================================== -->
+
+<button
+    id="downloadPoster"
+>
+
 🖼️ Download Poster Image
+
 </button>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
 
 <div
     class="progress"
     id="progressBox"
 >
 
+
 <div id="progressText">
-Video તૈયાર થઈ રહ્યું છે...
+
+    Video તૈયાર થઈ રહ્યું છે...
+
 </div>
 
+
 <div class="progress-bar">
+
 
 <div
     class="progress-fill"
     id="progressFill">
 </div>
 
+
 </div>
 
 </div>
+
 
 <div id="ffmpegStatus"></div>
 
+
 <div class="note">
-Video માં poster સાથે audio ના પ્રથમ 30 seconds જ રહેશે.
-</div>
+
+    Video માં poster સાથે audio ના પ્રથમ 30 seconds જ રહેશે.
 
 </div>
 
-<div class="poster-wrapper">
-
-<canvas
-    id="posterCanvas"
-    width="928"
-    height="1640">
-</canvas>
-
-</div>
 
 </div>
 
 
 <!-- =====================================================
-     FFMPEG.WASM
+     POSTER CANVAS
+===================================================== -->
+
+<div class="poster-wrapper">
+
+
+<canvas
+    id="posterCanvas"
+    width="928"
+    height="1640"
+>
+</canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ONLY FFMPEG LIBRARY
+     
+     IMPORTANT:
+     @ffmpeg/util IS NOT USED.
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.2/dist/umd/index.js"></script>
 
 
 <script>
@@ -236,11 +470,13 @@ Video માં poster સાથે audio ના પ્રથમ 30 seconds જ 
 ========================================================= */
 
 const POSTER_WIDTH = 928;
+
 const POSTER_HEIGHT = 1640;
 
 const VIDEO_SECONDS = 30;
 
 const POSTER_FILE = "poster.jpg";
+
 const AUDIO_FILE = "audio.mp3";
 
 
@@ -249,20 +485,26 @@ const AUDIO_FILE = "audio.mp3";
 ========================================================= */
 
 const PHOTO_BOX = {
+
     x:638,
+
     y:1290,
+
     width:270,
+
     height:270
+
 };
 
 
 /* =========================================================
-   NAME
+   NAME POSITION
 ========================================================= */
 
 const NAME_POSITION = {
 
     x:773,
+
     y:1615,
 
     maxWidth:240,
@@ -270,11 +512,12 @@ const NAME_POSITION = {
     fontSize:48,
 
     minFontSize:25
+
 };
 
 
 /* =========================================================
-   VILLAGE
+   VILLAGE POSITION
 ========================================================= */
 
 const VILLAGE_POSITION = {
@@ -301,66 +544,123 @@ const VILLAGE_POSITION = {
 ========================================================= */
 
 const canvas =
-    document.getElementById("posterCanvas");
+    document.getElementById(
+        "posterCanvas"
+    );
+
 
 const ctx =
-    canvas.getContext("2d");
+    canvas.getContext(
+        "2d"
+    );
+
 
 const photoInput =
-    document.getElementById("photoInput");
+    document.getElementById(
+        "photoInput"
+    );
+
 
 const nameInput =
-    document.getElementById("nameInput");
+    document.getElementById(
+        "nameInput"
+    );
+
 
 const villageInput =
-    document.getElementById("villageInput");
+    document.getElementById(
+        "villageInput"
+    );
+
 
 const downloadVideo =
-    document.getElementById("downloadVideo");
+    document.getElementById(
+        "downloadVideo"
+    );
+
 
 const downloadPoster =
-    document.getElementById("downloadPoster");
+    document.getElementById(
+        "downloadPoster"
+    );
+
 
 const progressBox =
-    document.getElementById("progressBox");
+    document.getElementById(
+        "progressBox"
+    );
+
 
 const progressText =
-    document.getElementById("progressText");
+    document.getElementById(
+        "progressText"
+    );
+
 
 const progressFill =
-    document.getElementById("progressFill");
+    document.getElementById(
+        "progressFill"
+    );
+
 
 const ffmpegStatus =
-    document.getElementById("ffmpegStatus");
+    document.getElementById(
+        "ffmpegStatus"
+    );
 
+
+/* =========================================================
+   VARIABLES
+========================================================= */
 
 let posterImage = null;
+
 let userPhoto = null;
 
 let ffmpeg = null;
+
 let ffmpegLoaded = false;
 
 
 /* =========================================================
-   FIXED POSTER LOADING
-   =========================================================
+   WAIT FOR MOGRA FONT
+========================================================= */
 
-   IMPORTANT FIX:
+async function loadMograFont(){
 
-   Instead of directly drawing poster.jpg into canvas,
-   we first fetch it and convert it into a Blob URL.
+    try{
 
-   This prevents the "Canvas is tainted" problem when
-   the website is running from GitHub Pages.
+        if(
+            document.fonts &&
+            document.fonts.load
+        ){
+
+            await document.fonts.load(
+                '35px "Mogra"'
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(
+            "Mogra font loading warning:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD POSTER
 ========================================================= */
 
 async function loadPoster(){
 
     try{
-
-        progressText.innerText =
-            "Poster loading...";
-
 
         const response =
             await fetch(
@@ -385,9 +685,12 @@ async function loadPoster(){
 
 
         /*
-           Create a local Blob URL.
+           IMPORTANT:
 
-           This is the important canvas-security fix.
+           Convert poster.jpg into a local Blob URL.
+
+           This prevents the canvas from becoming
+           cross-origin tainted.
         */
 
         const posterURL =
@@ -403,23 +706,12 @@ async function loadPoster(){
                     new Image();
 
 
-                /*
-                   crossOrigin is intentionally NOT used
-                   with the Blob URL.
-                */
-
-
                 img.onload =
                     function(){
 
                         posterImage =
                             img;
 
-
-                        /*
-                           Once loaded, the image is
-                           completely local to this page.
-                        */
 
                         URL.revokeObjectURL(
                             posterURL
@@ -457,22 +749,14 @@ async function loadPoster(){
         );
 
 
-        progressText.innerText =
-            "Poster ready.";
-
     }
     catch(error){
 
         console.error(
-            "POSTER LOAD ERROR:",
+            "POSTER ERROR:",
             error
         );
 
-
-        /*
-           If the page is opened directly using
-           file://, Safari may block fetch().
-        */
 
         if(
             window.location.protocol ===
@@ -481,9 +765,9 @@ async function loadPoster(){
 
             throw new Error(
 
-                "Please open this website through GitHub Pages.\n\n" +
+                "Please open your GitHub Pages URL.\n\n" +
 
-                "Do not use file://index.html for MP4 download.\n\n" +
+                "Do not open index.html using file://.\n\n" +
 
                 "Upload index.html, poster.jpg and audio.mp3 to GitHub Pages."
 
@@ -510,6 +794,7 @@ photoInput.addEventListener(
         const file =
             this.files[0];
 
+
         if(!file)
             return;
 
@@ -531,6 +816,7 @@ photoInput.addEventListener(
                         userPhoto =
                             img;
 
+
                         redraw();
 
                     };
@@ -551,13 +837,14 @@ photoInput.addEventListener(
 
 
 /* =========================================================
-   TEXT UPDATE
+   TEXT INPUT
 ========================================================= */
 
 nameInput.addEventListener(
     "input",
     redraw
 );
+
 
 villageInput.addEventListener(
     "input",
@@ -566,7 +853,7 @@ villageInput.addEventListener(
 
 
 /* =========================================================
-   PHOTO WITHOUT CROPPING
+   DRAW PHOTO
 ========================================================= */
 
 function drawPhotoContain(){
@@ -578,11 +865,14 @@ function drawPhotoContain(){
     const boxX =
         PHOTO_BOX.x;
 
+
     const boxY =
         PHOTO_BOX.y;
 
+
     const boxW =
         PHOTO_BOX.width;
+
 
     const boxH =
         PHOTO_BOX.height;
@@ -592,12 +882,14 @@ function drawPhotoContain(){
         userPhoto.width /
         userPhoto.height;
 
+
     const boxRatio =
         boxW /
         boxH;
 
 
     let drawW;
+
     let drawH;
 
 
@@ -609,6 +901,7 @@ function drawPhotoContain(){
         drawW =
             boxW;
 
+
         drawH =
             drawW /
             imageRatio;
@@ -618,6 +911,7 @@ function drawPhotoContain(){
 
         drawH =
             boxH;
+
 
         drawW =
             drawH *
@@ -630,6 +924,7 @@ function drawPhotoContain(){
         boxX +
         (boxW - drawW) / 2;
 
+
     const drawY =
         boxY +
         (boxH - drawH) / 2;
@@ -640,6 +935,7 @@ function drawPhotoContain(){
 
     ctx.beginPath();
 
+
     ctx.rect(
         boxX,
         boxY,
@@ -647,15 +943,22 @@ function drawPhotoContain(){
         boxH
     );
 
+
     ctx.clip();
 
 
     ctx.drawImage(
+
         userPhoto,
+
         drawX,
+
         drawY,
+
         drawW,
+
         drawH
+
     );
 
 
@@ -665,13 +968,14 @@ function drawPhotoContain(){
 
 
 /* =========================================================
-   NAME
+   DRAW NAME
 ========================================================= */
 
 function drawName(){
 
     const name =
         nameInput.value.trim();
+
 
     if(!name)
         return;
@@ -684,6 +988,7 @@ function drawName(){
     ctx.textAlign =
         "center";
 
+
     ctx.textBaseline =
         "middle";
 
@@ -692,9 +997,16 @@ function drawName(){
         `bold ${fontSize}px Arial`;
 
 
+    /*
+       Automatically reduce font
+       if name is too long.
+    */
+
     while(
 
-        ctx.measureText(name).width >
+        ctx.measureText(
+            name
+        ).width >
         NAME_POSITION.maxWidth
 
         &&
@@ -706,6 +1018,7 @@ function drawName(){
 
         fontSize--;
 
+
         ctx.font =
             `bold ${fontSize}px Arial`;
 
@@ -715,8 +1028,10 @@ function drawName(){
     ctx.shadowColor =
         "rgba(0,0,0,.18)";
 
+
     ctx.shadowBlur =
         3;
+
 
     ctx.fillStyle =
         "#8f2e0f";
@@ -740,13 +1055,14 @@ function drawName(){
 
 
 /* =========================================================
-   VILLAGE NAME
+   DRAW VILLAGE
 ========================================================= */
 
 function drawVillage(){
 
     const village =
         villageInput.value.trim();
+
 
     if(!village)
         return;
@@ -766,16 +1082,18 @@ function drawVillage(){
     ctx.textAlign =
         "center";
 
+
     ctx.textBaseline =
         "middle";
 
 
     ctx.fillStyle =
-        "#832404";
+        VILLAGE_POSITION.color;
 
 
     ctx.shadowColor =
         "rgba(0,0,0,.15)";
+
 
     ctx.shadowBlur =
         2;
@@ -783,12 +1101,18 @@ function drawVillage(){
 
     const villageCenterX =
         VILLAGE_POSITION.x +
-        VILLAGE_POSITION.width / 2;
+        (
+            VILLAGE_POSITION.width /
+            2
+        );
 
 
     const villageCenterY =
         VILLAGE_POSITION.y +
-        VILLAGE_POSITION.height / 2;
+        (
+            VILLAGE_POSITION.height /
+            2
+        );
 
 
     ctx.fillText(
@@ -818,10 +1142,15 @@ function redraw(){
 
 
     ctx.clearRect(
+
         0,
+
         0,
+
         POSTER_WIDTH,
+
         POSTER_HEIGHT
+
     );
 
 
@@ -830,9 +1159,11 @@ function redraw(){
         posterImage,
 
         0,
+
         0,
 
         POSTER_WIDTH,
+
         POSTER_HEIGHT
 
     );
@@ -840,7 +1171,9 @@ function redraw(){
 
     drawPhotoContain();
 
+
     drawVillage();
+
 
     drawName();
 
@@ -848,7 +1181,7 @@ function redraw(){
 
 
 /* =========================================================
-   IMAGE DOWNLOAD
+   DOWNLOAD POSTER IMAGE
 ========================================================= */
 
 downloadPoster.addEventListener(
@@ -859,6 +1192,7 @@ downloadPoster.addEventListener(
 
 
         canvas.toBlob(
+
             function(blob){
 
                 if(!blob){
@@ -887,6 +1221,7 @@ downloadPoster.addEventListener(
                 a.href =
                     url;
 
+
                 a.download =
                     "personalised-poster.png";
 
@@ -895,22 +1230,28 @@ downloadPoster.addEventListener(
                     a
                 );
 
+
                 a.click();
+
 
                 a.remove();
 
 
                 setTimeout(
-                    ()=>{
+                    function(){
+
                         URL.revokeObjectURL(
                             url
                         );
+
                     },
                     1000
                 );
 
             },
+
             "image/png"
+
         );
 
     }
@@ -935,7 +1276,11 @@ async function loadAudio(){
     if(!response.ok){
 
         throw new Error(
-            "audio.mp3 not found. Put audio.mp3 beside index.html."
+
+            "audio.mp3 not found. " +
+
+            "Put audio.mp3 beside index.html."
+
         );
 
     }
@@ -945,8 +1290,22 @@ async function loadAudio(){
         await response.arrayBuffer();
 
 
+    const AudioContextClass =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+    if(!AudioContextClass){
+
+        throw new Error(
+            "Your browser does not support Web Audio."
+        );
+
+    }
+
+
     const audioContext =
-        new AudioContext();
+        new AudioContextClass();
 
 
     const audioBuffer =
@@ -956,9 +1315,68 @@ async function loadAudio(){
 
 
     return {
+
         audioContext,
+
         audioBuffer
+
     };
+
+}
+
+
+/* =========================================================
+   CONVERT URL TO BLOB URL
+=========================================================
+
+   This replaces @ffmpeg/util's toBlobURL().
+
+   Therefore the problematic @ffmpeg/util library
+   is completely removed.
+========================================================= */
+
+async function makeBlobURL(
+    url,
+    mimeType
+){
+
+    const response =
+        await fetch(
+            url,
+            {
+                cache:"force-cache"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+
+            "Could not load FFmpeg file:\n" +
+            url
+
+        );
+
+    }
+
+
+    const blob =
+        await response.blob();
+
+
+    const typedBlob =
+        new Blob(
+            [blob],
+            {
+                type:mimeType
+            }
+        );
+
+
+    return URL.createObjectURL(
+        typedBlob
+    );
 
 }
 
@@ -973,25 +1391,21 @@ async function loadFFmpeg(){
         return;
 
 
+    /*
+       Check FFmpeg main library.
+    */
+
     if(
         typeof FFmpegWASM ===
         "undefined"
     ){
 
         throw new Error(
-            "FFmpeg library did not load. Check your internet connection."
-        );
 
-    }
+            "FFmpeg library did not load.\n\n" +
 
+            "Please check your internet connection."
 
-    if(
-        typeof FFmpegUtil ===
-        "undefined"
-    ){
-
-        throw new Error(
-            "FFmpeg utility library did not load."
         );
 
     }
@@ -1002,7 +1416,7 @@ async function loadFFmpeg(){
 
 
     ffmpegStatus.innerText =
-        "First MP4 download: FFmpeg converter is loading...";
+        "FFmpeg converter is loading for the first time...";
 
 
     const {
@@ -1011,19 +1425,19 @@ async function loadFFmpeg(){
         FFmpegWASM;
 
 
-    const {
-        toBlobURL
-    } =
-        FFmpegUtil;
-
-
     ffmpeg =
         new FFmpeg();
 
 
+    /*
+       FFmpeg logs.
+    */
+
     ffmpeg.on(
         "log",
-        ({message})=>{
+        function({
+            message
+        }){
 
             console.log(
                 "FFmpeg:",
@@ -1034,13 +1448,22 @@ async function loadFFmpeg(){
     );
 
 
+    /*
+       FFmpeg progress.
+    */
+
     ffmpeg.on(
         "progress",
-        ({progress})=>{
+        function({
+            progress
+        }){
 
             if(
+
                 progress >= 0 &&
+
                 progress <= 1
+
             ){
 
                 const percent =
@@ -1058,33 +1481,136 @@ async function loadFFmpeg(){
     );
 
 
+    /*
+       FFmpeg core location.
+    */
+
     const baseURL =
         "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
 
 
-    await ffmpeg.load({
+    progressText.innerText =
+        "FFmpeg core loading...";
 
-        coreURL:
-            await toBlobURL(
-                `${baseURL}/ffmpeg-core.js`,
-                "text/javascript"
-            ),
 
-        wasmURL:
-            await toBlobURL(
-                `${baseURL}/ffmpeg-core.wasm`,
-                "application/wasm"
-            )
+    /*
+       Create local Blob URLs.
 
-    });
+       This avoids the @ffmpeg/util problem
+       AND avoids cross-origin worker problems.
+    */
+
+    const coreURL =
+        await makeBlobURL(
+
+            `${baseURL}/ffmpeg-core.js`,
+
+            "text/javascript"
+
+        );
+
+
+    const wasmURL =
+        await makeBlobURL(
+
+            `${baseURL}/ffmpeg-core.wasm`,
+
+            "application/wasm"
+
+        );
+
+
+    const workerURL =
+        await makeBlobURL(
+
+            `${baseURL}/ffmpeg-core.worker.js`,
+
+            "text/javascript"
+
+        );
+
+
+    try{
+
+        await ffmpeg.load({
+
+            coreURL:
+                coreURL,
+
+            wasmURL:
+                wasmURL,
+
+            workerURL:
+                workerURL
+
+        });
+
+    }
+    finally{
+
+        /*
+           Blob URLs are kept while FFmpeg
+           is running. Do not revoke them here.
+        */
+
+    }
 
 
     ffmpegLoaded =
         true;
 
 
+    progressText.innerText =
+        "FFmpeg converter ready.";
+
+
     ffmpegStatus.innerText =
         "MP4 converter ready.";
+
+}
+
+
+/* =========================================================
+   CHOOSE VIDEO FORMAT
+========================================================= */
+
+function getSupportedMimeType(){
+
+    const types = [
+
+        "video/webm;codecs=vp9,opus",
+
+        "video/webm;codecs=vp8,opus",
+
+        "video/webm",
+
+        "video/mp4"
+
+    ];
+
+
+    for(
+        const type of types
+    ){
+
+        if(
+            MediaRecorder.isTypeSupported(
+                type
+            )
+        ){
+
+            return type;
+
+        }
+
+    }
+
+
+    throw new Error(
+
+        "Your browser does not support video recording."
+
+    );
 
 }
 
@@ -1102,9 +1628,19 @@ async function recordWebM(){
         await loadAudio();
 
 
-    const canvasStream =
-        canvas.captureStream(15);
+    /*
+       Canvas video.
+    */
 
+    const canvasStream =
+        canvas.captureStream(
+            15
+        );
+
+
+    /*
+       Audio recording stream.
+    */
 
     const audioDestination =
         audioContext
@@ -1125,6 +1661,10 @@ async function recordWebM(){
     );
 
 
+    /*
+       Combined stream.
+    */
+
     const combinedStream =
         new MediaStream();
 
@@ -1132,7 +1672,7 @@ async function recordWebM(){
     canvasStream
         .getVideoTracks()
         .forEach(
-            track=>{
+            function(track){
 
                 combinedStream.addTrack(
                     track
@@ -1146,7 +1686,7 @@ async function recordWebM(){
         .stream
         .getAudioTracks()
         .forEach(
-            track=>{
+            function(track){
 
                 combinedStream.addTrack(
                     track
@@ -1156,32 +1696,12 @@ async function recordWebM(){
         );
 
 
-    let mimeType =
-        "video/webm;codecs=vp9,opus";
+    /*
+       Find supported browser format.
+    */
 
-
-    if(
-        !MediaRecorder.isTypeSupported(
-            mimeType
-        )
-    ){
-
-        mimeType =
-            "video/webm;codecs=vp8,opus";
-
-    }
-
-
-    if(
-        !MediaRecorder.isTypeSupported(
-            mimeType
-        )
-    ){
-
-        mimeType =
-            "video/webm";
-
-    }
+    const mimeType =
+        getSupportedMimeType();
 
 
     const recorder =
@@ -1209,11 +1729,14 @@ async function recordWebM(){
 
 
     recorder.ondataavailable =
-        event=>{
+        function(event){
 
             if(
+
                 event.data &&
+
                 event.data.size > 0
+
             ){
 
                 chunks.push(
@@ -1227,7 +1750,7 @@ async function recordWebM(){
 
     const finished =
         new Promise(
-            resolve=>{
+            function(resolve){
 
                 recorder.onstop =
                     resolve;
@@ -1236,21 +1759,33 @@ async function recordWebM(){
         );
 
 
-    recorder.start(1000);
+    /*
+       Start recording.
+    */
+
+    recorder.start(
+        1000
+    );
 
 
     await audioContext.resume();
 
 
-    audioSource.start(0);
+    audioSource.start(
+        0
+    );
 
 
     const startTime =
         performance.now();
 
 
+    /*
+       30 SECOND TIMER.
+    */
+
     await new Promise(
-        resolve=>{
+        function(resolve){
 
             function update(){
 
@@ -1280,6 +1815,7 @@ async function recordWebM(){
 
 
                 progressText.innerText =
+
                     `Poster video બનાવાઈ રહ્યું છે... ${Math.floor(percent)}%`;
 
 
@@ -1308,13 +1844,27 @@ async function recordWebM(){
     );
 
 
+    /*
+       Stop audio.
+    */
+
     try{
 
         audioSource.stop();
 
     }
-    catch(e){}
+    catch(error){
 
+        console.log(
+            "Audio already stopped."
+        );
+
+    }
+
+
+    /*
+       Stop recorder.
+    */
 
     recorder.stop();
 
@@ -1322,11 +1872,17 @@ async function recordWebM(){
     await finished;
 
 
+    /*
+       Stop streams.
+    */
+
     combinedStream
         .getTracks()
         .forEach(
-            track=>{
+            function(track){
+
                 track.stop();
+
             }
         );
 
@@ -1334,20 +1890,37 @@ async function recordWebM(){
     canvasStream
         .getTracks()
         .forEach(
-            track=>{
+            function(track){
+
                 track.stop();
+
             }
         );
 
 
-    await audioContext.close();
+    try{
+
+        await audioContext.close();
+
+    }
+    catch(error){
+
+        console.log(
+            "AudioContext close warning:",
+            error
+        );
+
+    }
 
 
     return new Blob(
+
         chunks,
+
         {
             type:mimeType
         }
+
     );
 
 }
@@ -1372,64 +1945,113 @@ async function convertToMP4(
         "0%";
 
 
+    /*
+       Convert Blob to Uint8Array.
+    */
+
     const inputData =
         new Uint8Array(
+
             await webmBlob.arrayBuffer()
+
         );
 
 
+    /*
+       Write input file.
+    */
+
     await ffmpeg.writeFile(
+
         "input.webm",
+
         inputData
+
     );
 
+
+    /*
+       Convert WebM → H.264 MP4.
+
+       AAC audio.
+
+       Fast start for phones.
+    */
 
     const exitCode =
         await ffmpeg.exec([
 
             "-i",
+
             "input.webm",
 
+
             "-c:v",
+
             "libx264",
 
+
             "-preset",
+
             "ultrafast",
 
+
             "-crf",
+
             "28",
 
+
             "-pix_fmt",
+
             "yuv420p",
 
+
             "-c:a",
+
             "aac",
 
+
             "-b:a",
+
             "128k",
 
+
             "-movflags",
+
             "+faststart",
+
 
             "output.mp4"
 
         ]);
 
 
-    if(exitCode !== 0){
+    if(
+        exitCode !== 0
+    ){
 
         throw new Error(
+
             "FFmpeg could not create the MP4."
+
         );
 
     }
 
+
+    /*
+       Read final MP4.
+    */
 
     const outputData =
         await ffmpeg.readFile(
             "output.mp4"
         );
 
+
+    /*
+       Clean temporary files.
+    */
 
     try{
 
@@ -1438,7 +2060,7 @@ async function convertToMP4(
         );
 
     }
-    catch(e){}
+    catch(error){}
 
 
     try{
@@ -1448,14 +2070,21 @@ async function convertToMP4(
         );
 
     }
-    catch(e){}
+    catch(error){}
 
+
+    /*
+       Return actual MP4 Blob.
+    */
 
     return new Blob(
-        [outputData.buffer],
+
+        [outputData],
+
         {
             type:"video/mp4"
         }
+
     );
 
 }
@@ -1485,6 +2114,7 @@ function downloadBlob(
     a.href =
         url;
 
+
     a.download =
         filename;
 
@@ -1493,16 +2123,20 @@ function downloadBlob(
         a
     );
 
+
     a.click();
+
 
     a.remove();
 
 
     setTimeout(
-        ()=>{
+        function(){
+
             URL.revokeObjectURL(
                 url
             );
+
         },
         10000
     );
@@ -1511,10 +2145,14 @@ function downloadBlob(
 
 
 /* =========================================================
-   CREATE FINAL MP4
+   CREATE VIDEO
 ========================================================= */
 
 async function createVideo(){
+
+    /*
+       Photo check.
+    */
 
     if(!userPhoto){
 
@@ -1526,6 +2164,10 @@ async function createVideo(){
 
     }
 
+
+    /*
+       Name check.
+    */
 
     if(
         !nameInput.value.trim()
@@ -1540,6 +2182,10 @@ async function createVideo(){
     }
 
 
+    /*
+       Village check.
+    */
+
     if(
         !villageInput.value.trim()
     ){
@@ -1553,8 +2199,13 @@ async function createVideo(){
     }
 
 
+    /*
+       Disable buttons.
+    */
+
     downloadVideo.disabled =
         true;
+
 
     downloadPoster.disabled =
         true;
@@ -1570,16 +2221,25 @@ async function createVideo(){
 
     try{
 
+        /*
+           Make sure Mogra is loaded.
+        */
+
+        await loadMograFont();
+
+
+        /*
+           Draw final poster.
+        */
+
         redraw();
 
 
         /*
-           Check canvas before starting
-           the 30-second recording.
+           Test canvas.
 
-           If the canvas is still tainted,
-           give a clear error instead of
-           wasting 30 seconds.
+           If this fails, poster image is
+           cross-origin/tainted.
         */
 
         try{
@@ -1593,7 +2253,11 @@ async function createVideo(){
 
             throw new Error(
 
-                "Canvas security error. Please open the GitHub Pages URL instead of file://index.html."
+                "Canvas security error.\n\n" +
+
+                "Please open the GitHub Pages HTTPS URL, " +
+
+                "not the file:// index.html."
 
             );
 
@@ -1601,8 +2265,8 @@ async function createVideo(){
 
 
         /*
-           STEP 1
-           Create temporary WebM.
+           STEP 1:
+           Poster + audio → WebM.
         */
 
         const webmBlob =
@@ -1610,20 +2274,25 @@ async function createVideo(){
 
 
         if(
+
             !webmBlob ||
+
             webmBlob.size === 0
+
         ){
 
             throw new Error(
+
                 "Temporary video could not be created."
+
             );
 
         }
 
 
         /*
-           STEP 2
-           Convert WebM → REAL MP4.
+           STEP 2:
+           WebM → MP4.
         */
 
         const mp4Blob =
@@ -1633,20 +2302,25 @@ async function createVideo(){
 
 
         if(
+
             !mp4Blob ||
+
             mp4Blob.size === 0
+
         ){
 
             throw new Error(
+
                 "Final MP4 file is empty."
+
             );
 
         }
 
 
         /*
-           STEP 3
-           Download actual MP4.
+           STEP 3:
+           Download MP4.
         */
 
         progressFill.style.width =
@@ -1658,13 +2332,17 @@ async function createVideo(){
 
 
         downloadBlob(
+
             mp4Blob,
+
             "personalised-poster-video.mp4"
+
         );
 
 
         ffmpegStatus.innerText =
             "✅ MP4 successfully created.";
+
 
     }
     catch(error){
@@ -1681,7 +2359,11 @@ async function createVideo(){
 
             error.message +
 
-            "\n\nPlease make sure poster.jpg and audio.mp3 are in the same GitHub Pages folder."
+            "\n\n" +
+
+            "Please check that poster.jpg and audio.mp3 " +
+
+            "are in the same GitHub Pages folder."
 
         );
 
@@ -1691,12 +2373,13 @@ async function createVideo(){
         downloadVideo.disabled =
             false;
 
+
         downloadPoster.disabled =
             false;
 
 
         setTimeout(
-            ()=>{
+            function(){
 
                 progressBox.style.display =
                     "none";
@@ -1711,7 +2394,7 @@ async function createVideo(){
 
 
 /* =========================================================
-   BUTTON
+   VIDEO BUTTON
 ========================================================= */
 
 downloadVideo.addEventListener(
@@ -1721,18 +2404,32 @@ downloadVideo.addEventListener(
 
 
 /* =========================================================
-   START
+   START WEBSITE
 ========================================================= */
 
-loadPoster().catch(
-    error=>{
+(async function(){
+
+    try{
+
+        await loadMograFont();
+
+        await loadPoster();
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
 
         alert(
             error.message
         );
 
     }
-);
+
+})();
 
 </script>
 
