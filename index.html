@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html lang="gu">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Personalised Poster</title>
 
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
 
-<!-- =====================================================
-     MOGRA FONT
-===================================================== -->
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Mogra&display=swap"
-    rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Mogra&display=swap"
+      rel="stylesheet">
 
 
 <style>
@@ -38,12 +29,13 @@
 
 body{
     margin:0;
-    font-family:Arial,sans-serif;
     background:#f3f3f3;
     color:#222;
+    font-family:Arial,sans-serif;
 }
 
 .container{
+    width:100%;
     max-width:600px;
     margin:auto;
     padding:18px;
@@ -51,12 +43,12 @@ body{
 
 h1{
     text-align:center;
-    margin:5px 0 18px;
     font-size:24px;
+    margin:5px 0 18px;
 }
 
 .control-box{
-    background:white;
+    background:#fff;
     padding:18px;
     border-radius:15px;
     box-shadow:0 4px 15px rgba(0,0,0,.12);
@@ -69,8 +61,8 @@ label{
     margin:12px 0 6px;
 }
 
-input[type="text"],
-input[type="file"]{
+input[type="file"],
+input[type="text"]{
     width:100%;
     padding:12px;
     border:1px solid #ccc;
@@ -80,7 +72,7 @@ input[type="file"]{
 
 button{
     width:100%;
-    padding:13px;
+    padding:14px;
     margin-top:12px;
     border:0;
     border-radius:9px;
@@ -91,12 +83,12 @@ button{
 
 #downloadVideo{
     background:#e85d04;
-    color:white;
+    color:#fff;
 }
 
 #downloadPoster{
     background:#333;
-    color:white;
+    color:#fff;
 }
 
 button:disabled{
@@ -106,10 +98,9 @@ button:disabled{
 
 .poster-wrapper{
     width:100%;
-    background:white;
-    padding:0;
-    border-radius:5px;
+    background:#fff;
     overflow:hidden;
+    border-radius:5px;
     box-shadow:0 5px 25px rgba(0,0,0,.2);
 }
 
@@ -129,32 +120,39 @@ button:disabled{
 .progress-bar{
     width:100%;
     height:10px;
+    margin-top:8px;
     background:#ddd;
     border-radius:10px;
     overflow:hidden;
-    margin-top:8px;
 }
 
 .progress-fill{
     height:100%;
     width:0%;
     background:#e85d04;
-    transition:width:.1s linear;
+}
+
+.status{
+    margin-top:10px;
+    text-align:center;
+    font-size:13px;
+    color:#555;
 }
 
 .note{
+    margin-top:10px;
+    text-align:center;
     font-size:13px;
     color:#666;
-    text-align:center;
-    margin-top:10px;
     line-height:1.5;
 }
 
-#status{
-    font-size:13px;
-    color:#666;
-    text-align:center;
-    margin-top:8px;
+.preview-video{
+    width:100%;
+    display:none;
+    margin-top:15px;
+    border-radius:8px;
+    background:#000;
 }
 
 </style>
@@ -169,7 +167,7 @@ button:disabled{
 
 
 <h1>
-    તમારું Personalised Poster બનાવો
+તમારું Personalised Poster બનાવો
 </h1>
 
 
@@ -177,7 +175,7 @@ button:disabled{
 
 
 <label>
-    તમારો ફોટો Upload કરો
+તમારો ફોટો Upload કરો
 </label>
 
 <input
@@ -188,7 +186,7 @@ button:disabled{
 
 
 <label>
-    તમારું નામ
+તમારું નામ
 </label>
 
 <input
@@ -199,7 +197,7 @@ button:disabled{
 
 
 <label>
-    પ્રવાસમાં જવાનું ગામ
+પ્રવાસમાં જવાનું ગામ
 </label>
 
 <input
@@ -209,14 +207,16 @@ button:disabled{
 >
 
 
-<button id="downloadVideo">
+<button
+    id="downloadVideo">
 
-🎬 Download Poster MP4 Video
+🎬 Poster + Audio Video બનાવો
 
 </button>
 
 
-<button id="downloadPoster">
+<button
+    id="downloadPoster">
 
 🖼️ Download Poster Image
 
@@ -225,8 +225,7 @@ button:disabled{
 
 <div
     class="progress"
-    id="progressBox"
->
+    id="progressBox">
 
     <div id="progressText">
         Video તૈયાર થઈ રહ્યું છે...
@@ -244,14 +243,25 @@ button:disabled{
 </div>
 
 
-<div id="status"></div>
+<div
+    class="status"
+    id="status">
+</div>
 
 
 <div class="note">
 
-    Video માં poster સાથે audio ના પ્રથમ 30 seconds રહેશે.
+Video માં poster સાથે audio ના પ્રથમ 30 seconds રહેશે.
 
 </div>
+
+
+<video
+    id="previewVideo"
+    class="preview-video"
+    controls
+    playsinline>
+</video>
 
 
 </div>
@@ -273,16 +283,22 @@ button:disabled{
 
 <script>
 
-
 /* =====================================================
-   BASIC SETTINGS
+   SETTINGS
 ===================================================== */
 
-const POSTER_WIDTH = 928;
+const WIDTH = 928;
 
-const POSTER_HEIGHT = 1640;
+const HEIGHT = 1640;
 
-const VIDEO_SECONDS = 30;
+const VIDEO_DURATION = 30;
+
+const FPS = 24;
+
+
+/* =====================================================
+   FILES
+===================================================== */
 
 const POSTER_FILE = "poster.jpg";
 
@@ -310,7 +326,7 @@ const PHOTO_BOX = {
    NAME POSITION
 ===================================================== */
 
-const NAME_POSITION = {
+const NAME = {
 
     x:773,
 
@@ -318,9 +334,9 @@ const NAME_POSITION = {
 
     maxWidth:240,
 
-    fontSize:48,
+    maxSize:48,
 
-    minFontSize:25
+    minSize:25
 
 };
 
@@ -329,7 +345,7 @@ const NAME_POSITION = {
    VILLAGE POSITION
 ===================================================== */
 
-const VILLAGE_POSITION = {
+const VILLAGE = {
 
     x:632,
 
@@ -339,9 +355,9 @@ const VILLAGE_POSITION = {
 
     height:45,
 
-    fontSize:35,
+    maxSize:35,
 
-    color:"#832404"
+    minSize:20
 
 };
 
@@ -354,7 +370,9 @@ const canvas =
     document.getElementById("posterCanvas");
 
 const ctx =
-    canvas.getContext("2d");
+    canvas.getContext("2d", {
+        alpha:false
+    });
 
 const photoInput =
     document.getElementById("photoInput");
@@ -365,10 +383,10 @@ const nameInput =
 const villageInput =
     document.getElementById("villageInput");
 
-const downloadVideo =
+const videoButton =
     document.getElementById("downloadVideo");
 
-const downloadPoster =
+const posterButton =
     document.getElementById("downloadPoster");
 
 const progressBox =
@@ -383,6 +401,9 @@ const progressFill =
 const status =
     document.getElementById("status");
 
+const previewVideo =
+    document.getElementById("previewVideo");
+
 
 /* =====================================================
    VARIABLES
@@ -394,10 +415,54 @@ let userPhoto = null;
 
 
 /* =====================================================
-   LOAD MOGRA
+   LOAD POSTER
 ===================================================== */
 
-async function loadMogra(){
+function loadPoster(){
+
+    return new Promise((resolve,reject)=>{
+
+        const img = new Image();
+
+        img.onload = function(){
+
+            posterImage = img;
+
+            redraw();
+
+            resolve();
+
+        };
+
+        img.onerror = function(){
+
+            reject(
+                new Error(
+                    "poster.jpg could not be loaded. Make sure poster.jpg is in the same GitHub Pages folder as index.html."
+                )
+            );
+
+        };
+
+        /*
+           Relative URL.
+
+           Works correctly on GitHub Pages.
+        */
+
+        img.src =
+            POSTER_FILE + "?v=" + Date.now();
+
+    });
+
+}
+
+
+/* =====================================================
+   LOAD FONT
+===================================================== */
+
+async function loadFont(){
 
     try{
 
@@ -413,114 +478,8 @@ async function loadMogra(){
     catch(error){
 
         console.log(
-            "Mogra loading warning:",
+            "Font warning:",
             error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD POSTER
-===================================================== */
-
-async function loadPoster(){
-
-    try{
-
-        status.innerText =
-            "Poster loading...";
-
-
-        const response =
-            await fetch(
-                POSTER_FILE + "?v=" + Date.now()
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "poster.jpg not found."
-            );
-
-        }
-
-
-        const blob =
-            await response.blob();
-
-
-        const url =
-            URL.createObjectURL(blob);
-
-
-        await new Promise(
-            function(resolve,reject){
-
-                const img =
-                    new Image();
-
-
-                img.onload =
-                    function(){
-
-                        posterImage =
-                            img;
-
-
-                        URL.revokeObjectURL(
-                            url
-                        );
-
-
-                        redraw();
-
-
-                        resolve();
-
-                    };
-
-
-                img.onerror =
-                    function(){
-
-                        URL.revokeObjectURL(
-                            url
-                        );
-
-
-                        reject(
-                            new Error(
-                                "Could not load poster.jpg."
-                            )
-                        );
-
-                    };
-
-
-                img.src =
-                    url;
-
-            }
-        );
-
-
-        status.innerText =
-            "Poster ready.";
-
-    }
-    catch(error){
-
-        console.error(error);
-
-
-        alert(
-            "Poster loading error:\n\n" +
-            error.message +
-            "\n\nMake sure poster.jpg is beside index.html."
         );
 
     }
@@ -539,9 +498,19 @@ photoInput.addEventListener(
         const file =
             this.files[0];
 
-
         if(!file)
             return;
+
+
+        if(!file.type.startsWith("image/")){
+
+            alert(
+                "Please select an image."
+            );
+
+            return;
+
+        }
 
 
         const reader =
@@ -561,8 +530,17 @@ photoInput.addEventListener(
                         userPhoto =
                             img;
 
-
                         redraw();
+
+                    };
+
+
+                img.onerror =
+                    function(){
+
+                        alert(
+                            "Could not read the selected photo."
+                        );
 
                     };
 
@@ -588,7 +566,6 @@ nameInput.addEventListener(
     redraw
 );
 
-
 villageInput.addEventListener(
     "input",
     redraw
@@ -605,16 +582,16 @@ function drawPhoto(){
         return;
 
 
-    const boxX =
+    const bx =
         PHOTO_BOX.x;
 
-    const boxY =
+    const by =
         PHOTO_BOX.y;
 
-    const boxW =
+    const bw =
         PHOTO_BOX.width;
 
-    const boxH =
+    const bh =
         PHOTO_BOX.height;
 
 
@@ -624,45 +601,40 @@ function drawPhoto(){
 
 
     const boxRatio =
-        boxW /
-        boxH;
+        bw / bh;
 
 
-    let drawW;
+    let w;
+    let h;
 
-    let drawH;
 
+    /*
+       CONTAIN
+
+       Entire uploaded photo remains visible.
+    */
 
     if(imageRatio > boxRatio){
 
-        drawW =
-            boxW;
+        w = bw;
 
-        drawH =
-            drawW /
-            imageRatio;
+        h = w / imageRatio;
 
     }
     else{
 
-        drawH =
-            boxH;
+        h = bh;
 
-        drawW =
-            drawH *
-            imageRatio;
+        w = h * imageRatio;
 
     }
 
 
-    const drawX =
-        boxX +
-        (boxW - drawW) / 2;
+    const x =
+        bx + (bw - w) / 2;
 
-
-    const drawY =
-        boxY +
-        (boxH - drawH) / 2;
+    const y =
+        by + (bh - h) / 2;
 
 
     ctx.save();
@@ -670,28 +642,22 @@ function drawPhoto(){
 
     ctx.beginPath();
 
-
     ctx.rect(
-        boxX,
-        boxY,
-        boxW,
-        boxH
+        bx,
+        by,
+        bw,
+        bh
     );
-
 
     ctx.clip();
 
 
     ctx.drawImage(
-
         userPhoto,
-
-        drawX,
-        drawY,
-
-        drawW,
-        drawH
-
+        x,
+        y,
+        w,
+        h
     );
 
 
@@ -709,13 +675,12 @@ function drawName(){
     const name =
         nameInput.value.trim();
 
-
     if(!name)
         return;
 
 
-    let fontSize =
-        NAME_POSITION.fontSize;
+    let size =
+        NAME.maxSize;
 
 
     ctx.textAlign =
@@ -725,51 +690,45 @@ function drawName(){
         "middle";
 
 
-    ctx.font =
-        `bold ${fontSize}px Arial`;
-
-
-    while(
-
-        ctx.measureText(name).width >
-        NAME_POSITION.maxWidth
-
-        &&
-
-        fontSize >
-        NAME_POSITION.minFontSize
-
-    ){
-
-        fontSize--;
-
+    while(size > NAME.minSize){
 
         ctx.font =
-            `bold ${fontSize}px Arial`;
+            `bold ${size}px Arial`;
+
+        if(
+            ctx.measureText(name).width
+            <=
+            NAME.maxWidth
+        ){
+
+            break;
+
+        }
+
+        size--;
 
     }
 
 
-    ctx.shadowColor =
-        "rgba(0,0,0,.18)";
-
-
-    ctx.shadowBlur =
-        3;
+    ctx.font =
+        `bold ${size}px Arial`;
 
 
     ctx.fillStyle =
         "#8f2e0f";
 
 
+    ctx.shadowColor =
+        "rgba(0,0,0,.18)";
+
+    ctx.shadowBlur =
+        3;
+
+
     ctx.fillText(
-
         name,
-
-        NAME_POSITION.x,
-
-        NAME_POSITION.y
-
+        NAME.x,
+        NAME.y
     );
 
 
@@ -787,16 +746,25 @@ function drawVillage(){
     const village =
         villageInput.value.trim();
 
-
     if(!village)
         return;
 
 
+    let size =
+        VILLAGE.maxSize;
+
+
+    const centerX =
+        VILLAGE.x +
+        VILLAGE.width / 2;
+
+
+    const centerY =
+        VILLAGE.y +
+        VILLAGE.height / 2;
+
+
     ctx.save();
-
-
-    ctx.font =
-        `35px "Mogra", Arial, sans-serif`;
 
 
     ctx.textAlign =
@@ -806,36 +774,45 @@ function drawVillage(){
         "middle";
 
 
+    while(size > VILLAGE.minSize){
+
+        ctx.font =
+            `${size}px "Mogra", Arial`;
+
+        if(
+            ctx.measureText(village).width
+            <=
+            VILLAGE.width
+        ){
+
+            break;
+
+        }
+
+        size--;
+
+    }
+
+
+    ctx.font =
+        `${size}px "Mogra", Arial`;
+
+
     ctx.fillStyle =
-        VILLAGE_POSITION.color;
+        "#832404";
 
 
     ctx.shadowColor =
         "rgba(0,0,0,.15)";
 
-
     ctx.shadowBlur =
         2;
 
 
-    const centerX =
-        VILLAGE_POSITION.x +
-        VILLAGE_POSITION.width / 2;
-
-
-    const centerY =
-        VILLAGE_POSITION.y +
-        VILLAGE_POSITION.height / 2;
-
-
     ctx.fillText(
-
         village,
-
         centerX,
-
         centerY
-
     );
 
 
@@ -857,27 +834,41 @@ function redraw(){
     ctx.clearRect(
         0,
         0,
-        POSTER_WIDTH,
-        POSTER_HEIGHT
+        WIDTH,
+        HEIGHT
     );
 
+
+    /*
+       Base poster.
+    */
 
     ctx.drawImage(
-
         posterImage,
-
         0,
         0,
-
-        POSTER_WIDTH,
-        POSTER_HEIGHT
-
+        WIDTH,
+        HEIGHT
     );
 
+
+    /*
+       User photo.
+    */
 
     drawPhoto();
 
+
+    /*
+       Village.
+    */
+
     drawVillage();
+
+
+    /*
+       User name.
+    */
 
     drawName();
 
@@ -888,20 +879,9 @@ function redraw(){
    DOWNLOAD IMAGE
 ===================================================== */
 
-downloadPoster.addEventListener(
+posterButton.addEventListener(
     "click",
-    function(){
-
-        if(!posterImage){
-
-            alert(
-                "Poster is still loading."
-            );
-
-            return;
-
-        }
-
+    async function(){
 
         redraw();
 
@@ -950,21 +930,19 @@ function downloadBlob(
         document.createElement("a");
 
 
-    a.href =
-        url;
+    a.href = url;
+
+    a.download = filename;
 
 
-    a.download =
-        filename;
+    a.style.display = "none";
 
 
     document.body.appendChild(a);
 
-
     a.click();
 
-
-    a.remove();
+    document.body.removeChild(a);
 
 
     setTimeout(
@@ -973,7 +951,7 @@ function downloadBlob(
             URL.revokeObjectURL(url);
 
         },
-        10000
+        15000
     );
 
 }
@@ -985,6 +963,10 @@ function downloadBlob(
 
 async function loadAudio(){
 
+    status.innerText =
+        "Audio loading...";
+
+
     const response =
         await fetch(
             AUDIO_FILE + "?v=" + Date.now()
@@ -994,7 +976,7 @@ async function loadAudio(){
     if(!response.ok){
 
         throw new Error(
-            "audio.mp3 not found."
+            "audio.mp3 could not be loaded. Make sure audio.mp3 is in the same GitHub Pages folder."
         );
 
     }
@@ -1012,7 +994,7 @@ async function loadAudio(){
     if(!AudioContextClass){
 
         throw new Error(
-            "Your browser does not support Web Audio."
+            "This browser does not support Web Audio."
         );
 
     }
@@ -1029,57 +1011,131 @@ async function loadAudio(){
 
 
     return {
-
         audioContext,
         audioBuffer
-
     };
 
 }
 
 
 /* =====================================================
-   FIND BEST MP4 MIME TYPE
+   FIND BEST VIDEO FORMAT
 ===================================================== */
 
-function getMP4MimeType(){
+function getVideoFormat(){
 
-    const types = [
+    if(
+        !window.MediaRecorder
+    ){
 
-        "video/mp4;codecs=\"avc1.42E01E,mp4a.40.2\"",
+        throw new Error(
+            "This browser does not support video recording."
+        );
 
-        "video/mp4;codecs=\"avc1.4D401E,mp4a.40.2\"",
+    }
 
-        "video/mp4",
 
-        "video/webm;codecs=vp9,opus",
+    /*
+       Prefer MP4 first.
 
-        "video/webm"
+       Safari/iPhone commonly supports this.
+    */
+
+    const formats = [
+
+        {
+            mime:
+                'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
+            extension:
+                "mp4"
+        },
+
+        {
+            mime:
+                "video/mp4",
+            extension:
+                "mp4"
+        },
+
+        {
+            mime:
+                'video/webm;codecs="vp8,opus"',
+            extension:
+                "webm"
+        },
+
+        {
+            mime:
+                "video/webm;codecs=" +
+                "vp9,opus",
+            extension:
+                "webm"
+        },
+
+        {
+            mime:
+                "video/webm",
+            extension:
+                "webm"
+        }
 
     ];
 
 
+    /*
+       Find the first format supported
+       by the visitor's browser.
+    */
+
     for(
-        const type of types
+        const format of formats
     ){
 
         try{
 
             if(
-                MediaRecorder.isTypeSupported(type)
+                MediaRecorder.isTypeSupported(
+                    format.mime
+                )
             ){
 
-                return type;
+                return format;
 
             }
 
         }
-        catch(error){}
+        catch(error){
+
+            console.log(
+                "Format check:",
+                format.mime,
+                error
+            );
+
+        }
 
     }
 
 
-    return null;
+    /*
+       Let browser choose if possible.
+    */
+
+    try{
+
+        return {
+            mime:"",
+            extension:"webm"
+        };
+
+    }
+    catch(error){
+
+        throw new Error(
+            "No supported video format was found."
+        );
+
+    }
 
 }
 
@@ -1088,379 +1144,18 @@ function getMP4MimeType(){
    RECORD VIDEO
 ===================================================== */
 
-async function recordVideo(){
-
-    const {
-
-        audioContext,
-
-        audioBuffer
-
-    } = await loadAudio();
-
-
-    /*
-       Canvas video stream
-    */
-
-    const canvasStream =
-        canvas.captureStream(15);
-
-
-    /*
-       Audio stream
-    */
-
-    const audioDestination =
-        audioContext
-        .createMediaStreamDestination();
-
-
-    const audioSource =
-        audioContext
-        .createBufferSource();
-
-
-    audioSource.buffer =
-        audioBuffer;
-
-
-    audioSource.connect(
-        audioDestination
-    );
-
-
-    /*
-       Combined stream
-    */
-
-    const stream =
-        new MediaStream();
-
-
-    canvasStream
-        .getVideoTracks()
-        .forEach(
-            function(track){
-
-                stream.addTrack(track);
-
-            }
-        );
-
-
-    audioDestination
-        .stream
-        .getAudioTracks()
-        .forEach(
-            function(track){
-
-                stream.addTrack(track);
-
-            }
-        );
-
-
-    /*
-       Select MP4 first.
-    */
-
-    const mimeType =
-        getMP4MimeType();
-
-
-    if(!mimeType){
-
-        stream.getTracks()
-            .forEach(
-                track=>track.stop()
-            );
-
-
-        await audioContext.close();
-
-
-        throw new Error(
-
-            "This browser does not support MP4 recording.\n\n" +
-
-            "Please use the latest Safari or Chrome."
-
-        );
-
-    }
-
-
-    console.log(
-        "Recording format:",
-        mimeType
-    );
-
-
-    /*
-       Create recorder
-    */
-
-    let recorder;
-
-
-    try{
-
-        recorder =
-            new MediaRecorder(
-
-                stream,
-
-                {
-
-                    mimeType:
-                        mimeType,
-
-                    videoBitsPerSecond:
-                        1800000,
-
-                    audioBitsPerSecond:
-                        128000
-
-                }
-
-            );
-
-    }
-    catch(error){
-
-        stream.getTracks()
-            .forEach(
-                track=>track.stop()
-            );
-
-
-        await audioContext.close();
-
-
-        throw new Error(
-
-            "MP4 recorder could not start.\n\n" +
-
-            error.message
-
-        );
-
-    }
-
-
-    const chunks = [];
-
-
-    recorder.ondataavailable =
-        function(event){
-
-            if(
-
-                event.data &&
-
-                event.data.size > 0
-
-            ){
-
-                chunks.push(
-                    event.data
-                );
-
-            }
-
-        };
-
-
-    const stopped =
-        new Promise(
-            function(resolve){
-
-                recorder.onstop =
-                    resolve;
-
-            }
-        );
-
-
-    /*
-       Start recording
-    */
-
-    recorder.start(1000);
-
-
-    await audioContext.resume();
-
-
-    audioSource.start(0);
-
-
-    const startTime =
-        performance.now();
-
-
-    /*
-       30 second recording
-    */
-
-    await new Promise(
-        function(resolve){
-
-            function update(){
-
-                const elapsed =
-                    (
-                        performance.now() -
-                        startTime
-                    ) / 1000;
-
-
-                const percent =
-                    Math.min(
-
-                        100,
-
-                        (
-                            elapsed /
-                            VIDEO_SECONDS
-                        ) * 100
-
-                    );
-
-
-                progressFill.style.width =
-                    percent + "%";
-
-
-                progressText.innerText =
-                    "Poster video બનાવાઈ રહ્યું છે... " +
-                    Math.floor(percent) +
-                    "%";
-
-
-                if(
-                    elapsed >=
-                    VIDEO_SECONDS
-                ){
-
-                    resolve();
-
-                }
-                else{
-
-                    requestAnimationFrame(
-                        update
-                    );
-
-                }
-
-            }
-
-
-            update();
-
-        }
-    );
-
-
-    /*
-       Stop audio
-    */
-
-    try{
-
-        audioSource.stop();
-
-    }
-    catch(error){}
-
-
-    /*
-       Stop recorder
-    */
-
-    recorder.stop();
-
-
-    await stopped;
-
-
-    /*
-       Stop tracks
-    */
-
-    stream
-        .getTracks()
-        .forEach(
-            function(track){
-
-                track.stop();
-
-            }
-        );
-
-
-    canvasStream
-        .getTracks()
-        .forEach(
-            function(track){
-
-                track.stop();
-
-            }
-        );
-
-
-    try{
-
-        await audioContext.close();
-
-    }
-    catch(error){}
-
-
-    /*
-       Determine actual output type.
-    */
-
-    let outputType =
-        mimeType;
-
-
-    if(
-        chunks.length > 0 &&
-        chunks[0].type
-    ){
-
-        outputType =
-            chunks[0].type;
-
-    }
-
-
-    return new Blob(
-
-        chunks,
-
-        {
-            type:outputType
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   CREATE VIDEO
-===================================================== */
-
 async function createVideo(){
 
-    /*
-       Check photo
-    */
+    if(!posterImage){
+
+        alert(
+            "Poster is still loading. Please wait a moment."
+        );
+
+        return;
+
+    }
+
 
     if(!userPhoto){
 
@@ -1473,13 +1168,7 @@ async function createVideo(){
     }
 
 
-    /*
-       Check name
-    */
-
-    if(
-        !nameInput.value.trim()
-    ){
+    if(!nameInput.value.trim()){
 
         alert(
             "Please enter your name."
@@ -1490,13 +1179,7 @@ async function createVideo(){
     }
 
 
-    /*
-       Check village
-    */
-
-    if(
-        !villageInput.value.trim()
-    ){
+    if(!villageInput.value.trim()){
 
         alert(
             "Please enter the village name."
@@ -1508,116 +1191,493 @@ async function createVideo(){
 
 
     /*
-       Disable buttons
+       Disable buttons.
     */
 
-    downloadVideo.disabled =
-        true;
+    videoButton.disabled = true;
 
-    downloadPoster.disabled =
-        true;
+    posterButton.disabled = true;
 
 
     progressBox.style.display =
         "block";
 
-
     progressFill.style.width =
         "0%";
 
 
-    status.innerText =
-        "Preparing MP4 video...";
+    previewVideo.style.display =
+        "none";
+
+
+    let audioContext = null;
+
+    let recorder = null;
+
+    let canvasStream = null;
+
+    let combinedStream = null;
+
+    let animationID = null;
+
+    let audioSource = null;
 
 
     try{
 
+        await loadFont();
+
+
+        redraw();
+
+
         /*
-           Make sure Mogra is loaded
+           Make sure canvas is readable.
         */
 
-        await loadMogra();
+        canvas.toDataURL("image/png");
 
 
         /*
-           Draw final poster
+           Load audio.
+        */
+
+        const audio =
+            await loadAudio();
+
+
+        audioContext =
+            audio.audioContext;
+
+
+        const audioBuffer =
+            audio.audioBuffer;
+
+
+        /*
+           Resume audio context.
+
+           Important for mobile browsers.
+        */
+
+        await audioContext.resume();
+
+
+        /*
+           Canvas video stream.
+        */
+
+        canvasStream =
+            canvas.captureStream(FPS);
+
+
+        /*
+           Audio stream.
+        */
+
+        const audioDestination =
+            audioContext
+            .createMediaStreamDestination();
+
+
+        audioSource =
+            audioContext
+            .createBufferSource();
+
+
+        audioSource.buffer =
+            audioBuffer;
+
+
+        /*
+           If audio is shorter than 30 sec,
+           loop it so the video still has
+           audio for the full duration.
+        */
+
+        if(
+            audioBuffer.duration <
+            VIDEO_DURATION
+        ){
+
+            audioSource.loop = true;
+
+        }
+
+
+        audioSource.connect(
+            audioDestination
+        );
+
+
+        /*
+           Combined stream.
+        */
+
+        combinedStream =
+            new MediaStream();
+
+
+        canvasStream
+            .getVideoTracks()
+            .forEach(
+                function(track){
+
+                    combinedStream.addTrack(
+                        track
+                    );
+
+                }
+            );
+
+
+        audioDestination
+            .stream
+            .getAudioTracks()
+            .forEach(
+                function(track){
+
+                    combinedStream.addTrack(
+                        track
+                    );
+
+                }
+            );
+
+
+        /*
+           Browser-specific format.
+        */
+
+        const format =
+            getVideoFormat();
+
+
+        status.innerText =
+            "Video format: " +
+            (
+                format.extension === "mp4"
+                ? "MP4"
+                : "WebM"
+            );
+
+
+        /*
+           MediaRecorder options.
+        */
+
+        const options = {
+
+            videoBitsPerSecond:
+                2500000,
+
+            audioBitsPerSecond:
+                128000
+
+        };
+
+
+        if(format.mime){
+
+            options.mimeType =
+                format.mime;
+
+        }
+
+
+        /*
+           Create recorder.
+        */
+
+        recorder =
+            new MediaRecorder(
+                combinedStream,
+                options
+            );
+
+
+        const chunks = [];
+
+
+        recorder.ondataavailable =
+            function(event){
+
+                if(
+                    event.data &&
+                    event.data.size > 0
+                ){
+
+                    chunks.push(
+                        event.data
+                    );
+
+                }
+
+            };
+
+
+        const stopped =
+            new Promise(
+                function(resolve,reject){
+
+                    recorder.onstop =
+                        function(){
+
+                            resolve();
+
+                        };
+
+
+                    recorder.onerror =
+                        function(event){
+
+                            reject(
+                                event.error ||
+                                new Error(
+                                    "Video recording failed."
+                                )
+                            );
+
+                        };
+
+                }
+            );
+
+
+        /*
+           IMPORTANT:
+
+           Continuously redraw the poster.
+
+           This ensures that the canvas video
+           contains real video frames.
+
+           This fixes the problem where Chrome
+           downloaded audio but the poster/video
+           appeared blank.
+        */
+
+        let startTime =
+            performance.now();
+
+
+        function animate(){
+
+            redraw();
+
+
+            const elapsed =
+                (
+                    performance.now() -
+                    startTime
+                ) / 1000;
+
+
+            const percent =
+                Math.min(
+                    100,
+                    elapsed /
+                    VIDEO_DURATION *
+                    100
+                );
+
+
+            progressFill.style.width =
+                percent + "%";
+
+
+            progressText.innerText =
+                "Video બનાવાઈ રહ્યું છે... " +
+                Math.floor(percent) +
+                "%";
+
+
+            if(
+                elapsed <
+                VIDEO_DURATION
+            ){
+
+                animationID =
+                    requestAnimationFrame(
+                        animate
+                    );
+
+            }
+
+        }
+
+
+        /*
+           Start recording BEFORE audio.
+        */
+
+        recorder.start(1000);
+
+
+        /*
+           Start canvas animation.
+        */
+
+        startTime =
+            performance.now();
+
+
+        animate();
+
+
+        /*
+           Start audio.
+        */
+
+        audioSource.start(0);
+
+
+        /*
+           Wait 30 seconds.
+        */
+
+        await new Promise(
+            function(resolve){
+
+                setTimeout(
+                    resolve,
+                    VIDEO_DURATION * 1000
+                );
+
+            }
+        );
+
+
+        /*
+           Stop animation.
+        */
+
+        if(animationID){
+
+            cancelAnimationFrame(
+                animationID
+            );
+
+        }
+
+
+        /*
+           Stop audio.
+        */
+
+        try{
+
+            audioSource.stop();
+
+        }
+        catch(error){}
+
+
+        /*
+           Stop recorder.
+        */
+
+        if(
+            recorder.state !==
+            "inactive"
+        ){
+
+            recorder.stop();
+
+        }
+
+
+        await stopped;
+
+
+        /*
+           Final poster frame.
         */
 
         redraw();
 
 
         /*
-           Test canvas
+           Create video Blob.
         */
 
-        try{
+        const finalType =
+            recorder.mimeType ||
+            format.mime ||
+            "video/webm";
 
-            canvas.toDataURL(
-                "image/png"
-            );
-
-        }
-        catch(error){
-
-            throw new Error(
-
-                "Canvas error.\n\n" +
-
-                "Please use your GitHub Pages HTTPS URL."
-
-            );
-
-        }
-
-
-        /*
-           Record directly as MP4
-        */
 
         const videoBlob =
-            await recordVideo();
+            new Blob(
+                chunks,
+                {
+                    type:finalType
+                }
+            );
 
 
         if(
             !videoBlob ||
-            videoBlob.size === 0
+            videoBlob.size <
+            1000
         ){
 
             throw new Error(
-                "MP4 video could not be created."
+                "The browser created an empty video."
             );
 
         }
 
 
         /*
-           Check whether browser actually
-           produced MP4.
+           Determine extension from
+           the actual recorded MIME type.
         */
 
-        const isMP4 =
-            videoBlob.type
+        let extension;
+
+
+        if(
+            finalType
             .toLowerCase()
-            .includes("mp4");
+            .includes("mp4")
+        ){
 
+            extension =
+                "mp4";
 
-        if(!isMP4){
+        }
+        else{
 
-            throw new Error(
-
-                "Your browser returned " +
-                videoBlob.type +
-                " instead of MP4.\n\n" +
-
-                "Please update Safari to the latest version."
-
-            );
+            extension =
+                "webm";
 
         }
 
 
         /*
-           Complete
+           Preview the generated video
+           before downloading.
+
+           This is important for mobile.
+        */
+
+        const previewURL =
+            URL.createObjectURL(
+                videoBlob
+            );
+
+
+        previewVideo.src =
+            previewURL;
+
+
+        previewVideo.style.display =
+            "block";
+
+
+        /*
+           Download.
         */
 
         progressFill.style.width =
@@ -1625,21 +1685,20 @@ async function createVideo(){
 
 
         progressText.innerText =
-            "✅ MP4 તૈયાર છે — Download શરૂ થઈ રહ્યું છે...";
+            "✅ Video તૈયાર છે. Download શરૂ થઈ રહ્યું છે...";
 
-
-        status.innerText =
-            "✅ MP4 successfully created.";
-
-
-        /*
-           Download
-        */
 
         downloadBlob(
             videoBlob,
-            "personalised-poster-video.mp4"
+            "personalised-poster-video." +
+            extension
         );
+
+
+        status.innerText =
+            "✅ Video downloaded as ." +
+            extension;
+
 
     }
     catch(error){
@@ -1651,24 +1710,88 @@ async function createVideo(){
 
 
         alert(
-
-            "MP4 download error:\n\n" +
-
+            "Video બનાવવામાં error:\n\n" +
             error.message
-
         );
 
 
         status.innerText =
-            "MP4 creation failed.";
+            "Video could not be created.";
 
     }
     finally{
 
-        downloadVideo.disabled =
+        /*
+           Cleanup.
+        */
+
+        if(animationID){
+
+            cancelAnimationFrame(
+                animationID
+            );
+
+        }
+
+
+        if(audioSource){
+
+            try{
+
+                audioSource.disconnect();
+
+            }
+            catch(error){}
+
+        }
+
+
+        if(combinedStream){
+
+            combinedStream
+                .getTracks()
+                .forEach(
+                    function(track){
+
+                        track.stop();
+
+                    }
+                );
+
+        }
+
+
+        if(canvasStream){
+
+            canvasStream
+                .getTracks()
+                .forEach(
+                    function(track){
+
+                        track.stop();
+
+                    }
+                );
+
+        }
+
+
+        if(audioContext){
+
+            try{
+
+                await audioContext.close();
+
+            }
+            catch(error){}
+
+        }
+
+
+        videoButton.disabled =
             false;
 
-        downloadPoster.disabled =
+        posterButton.disabled =
             false;
 
 
@@ -1679,7 +1802,7 @@ async function createVideo(){
                     "none";
 
             },
-            5000
+            3000
         );
 
     }
@@ -1688,10 +1811,10 @@ async function createVideo(){
 
 
 /* =====================================================
-   VIDEO BUTTON
+   BUTTON
 ===================================================== */
 
-downloadVideo.addEventListener(
+videoButton.addEventListener(
     "click",
     createVideo
 );
@@ -1703,14 +1826,32 @@ downloadVideo.addEventListener(
 
 (async function(){
 
-    await loadMogra();
+    try{
 
-    await loadPoster();
+        await loadFont();
+
+        await loadPoster();
+
+        status.innerText =
+            "✅ Poster ready.";
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            error.message
+        );
+
+    }
 
 })();
 
 </script>
-
 
 </body>
 </html>
