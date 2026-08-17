@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="gu">
+
 <head>
 
 <meta charset="UTF-8">
@@ -35,10 +36,6 @@
 
 <style>
 
-/* =====================================================
-   BASIC
-===================================================== */
-
 *{
     box-sizing:border-box;
 }
@@ -68,10 +65,6 @@ body{
 }
 
 
-/* =====================================================
-   TITLE
-===================================================== */
-
 h1{
 
     text-align:center;
@@ -83,10 +76,6 @@ h1{
 }
 
 
-/* =====================================================
-   CONTROL BOX
-===================================================== */
-
 .control-box{
 
     background:white;
@@ -95,8 +84,7 @@ h1{
 
     border-radius:15px;
 
-    box-shadow:
-        0 4px 15px rgba(0,0,0,.12);
+    box-shadow:0 4px 15px rgba(0,0,0,.12);
 
     margin-bottom:20px;
 
@@ -129,10 +117,6 @@ input[type="file"]{
 
 }
 
-
-/* =====================================================
-   BUTTONS
-===================================================== */
 
 button{
 
@@ -182,10 +166,6 @@ button:disabled{
 }
 
 
-/* =====================================================
-   POSTER
-===================================================== */
-
 .poster-wrapper{
 
     width:100%;
@@ -198,8 +178,7 @@ button:disabled{
 
     overflow:hidden;
 
-    box-shadow:
-        0 5px 25px rgba(0,0,0,.2);
+    box-shadow:0 5px 25px rgba(0,0,0,.2);
 
 }
 
@@ -214,10 +193,6 @@ button:disabled{
 
 }
 
-
-/* =====================================================
-   PROGRESS
-===================================================== */
 
 .progress{
 
@@ -262,10 +237,6 @@ button:disabled{
 }
 
 
-/* =====================================================
-   NOTE
-===================================================== */
-
 .note{
 
     font-size:13px;
@@ -305,19 +276,15 @@ button:disabled{
 
 
 <h1>
-    તમારું Personalised Poster બનાવો
+તમારું Personalised Poster બનાવો
 </h1>
 
 
 <div class="control-box">
 
 
-<!-- =====================================================
-     PHOTO
-===================================================== -->
-
 <label>
-    તમારો ફોટો Upload કરો
+તમારો ફોટો Upload કરો
 </label>
 
 
@@ -328,12 +295,8 @@ button:disabled{
 >
 
 
-<!-- =====================================================
-     NAME
-===================================================== -->
-
 <label>
-    તમારું નામ
+તમારું નામ
 </label>
 
 
@@ -344,12 +307,8 @@ button:disabled{
 >
 
 
-<!-- =====================================================
-     VILLAGE
-===================================================== -->
-
 <label>
-    પ્રવાસમાં જવાનું ગામ
+પ્રવાસમાં જવાનું ગામ
 </label>
 
 
@@ -360,35 +319,15 @@ button:disabled{
 >
 
 
-<!-- =====================================================
-     VIDEO BUTTON
-===================================================== -->
-
-<button
-    id="downloadVideo"
->
-
+<button id="downloadVideo">
 🎬 Download Poster MP4 Video
-
 </button>
 
 
-<!-- =====================================================
-     IMAGE BUTTON
-===================================================== -->
-
-<button
-    id="downloadPoster"
->
-
+<button id="downloadPoster">
 🖼️ Download Poster Image
-
 </button>
 
-
-<!-- =====================================================
-     PROGRESS
-===================================================== -->
 
 <div
     class="progress"
@@ -397,9 +336,7 @@ button:disabled{
 
 
 <div id="progressText">
-
-    Video તૈયાર થઈ રહ્યું છે...
-
+Video તૈયાર થઈ રહ્યું છે...
 </div>
 
 
@@ -421,18 +358,12 @@ button:disabled{
 
 
 <div class="note">
-
-    Video માં poster સાથે audio ના પ્રથમ 30 seconds જ રહેશે.
-
+Video માં poster સાથે audio ના પ્રથમ 30 seconds જ રહેશે.
 </div>
 
 
 </div>
 
-
-<!-- =====================================================
-     POSTER CANVAS
-===================================================== -->
 
 <div class="poster-wrapper">
 
@@ -440,8 +371,7 @@ button:disabled{
 <canvas
     id="posterCanvas"
     width="928"
-    height="1640"
->
+    height="1640">
 </canvas>
 
 
@@ -453,14 +383,10 @@ button:disabled{
 
 
 <!-- =====================================================
-     ONLY FFMPEG LIBRARY
-     
-     IMPORTANT:
-     @ffmpeg/util IS NOT USED.
+     FFMPEG MAIN LIBRARY
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
-
 
 
 <script>
@@ -544,69 +470,47 @@ const VILLAGE_POSITION = {
 ========================================================= */
 
 const canvas =
-    document.getElementById(
-        "posterCanvas"
-    );
+    document.getElementById("posterCanvas");
 
 
 const ctx =
-    canvas.getContext(
-        "2d"
-    );
+    canvas.getContext("2d");
 
 
 const photoInput =
-    document.getElementById(
-        "photoInput"
-    );
+    document.getElementById("photoInput");
 
 
 const nameInput =
-    document.getElementById(
-        "nameInput"
-    );
+    document.getElementById("nameInput");
 
 
 const villageInput =
-    document.getElementById(
-        "villageInput"
-    );
+    document.getElementById("villageInput");
 
 
 const downloadVideo =
-    document.getElementById(
-        "downloadVideo"
-    );
+    document.getElementById("downloadVideo");
 
 
 const downloadPoster =
-    document.getElementById(
-        "downloadPoster"
-    );
+    document.getElementById("downloadPoster");
 
 
 const progressBox =
-    document.getElementById(
-        "progressBox"
-    );
+    document.getElementById("progressBox");
 
 
 const progressText =
-    document.getElementById(
-        "progressText"
-    );
+    document.getElementById("progressText");
 
 
 const progressFill =
-    document.getElementById(
-        "progressFill"
-    );
+    document.getElementById("progressFill");
 
 
 const ffmpegStatus =
-    document.getElementById(
-        "ffmpegStatus"
-    );
+    document.getElementById("ffmpegStatus");
 
 
 /* =========================================================
@@ -623,7 +527,7 @@ let ffmpegLoaded = false;
 
 
 /* =========================================================
-   WAIT FOR MOGRA FONT
+   MOGRA FONT
 ========================================================= */
 
 async function loadMograFont(){
@@ -645,7 +549,7 @@ async function loadMograFont(){
     catch(error){
 
         console.log(
-            "Mogra font loading warning:",
+            "Mogra font warning:",
             error
         );
 
@@ -685,12 +589,9 @@ async function loadPoster(){
 
 
         /*
-           IMPORTANT:
+           Convert poster to local Blob URL.
 
-           Convert poster.jpg into a local Blob URL.
-
-           This prevents the canvas from becoming
-           cross-origin tainted.
+           This prevents canvas tainting.
         */
 
         const posterURL =
@@ -748,7 +649,6 @@ async function loadPoster(){
             }
         );
 
-
     }
     catch(error){
 
@@ -759,17 +659,14 @@ async function loadPoster(){
 
 
         if(
-            window.location.protocol ===
-            "file:"
+            window.location.protocol === "file:"
         ){
 
             throw new Error(
 
-                "Please open your GitHub Pages URL.\n\n" +
+                "Please open the GitHub Pages HTTPS URL.\n\n" +
 
-                "Do not open index.html using file://.\n\n" +
-
-                "Upload index.html, poster.jpg and audio.mp3 to GitHub Pages."
+                "Do not open index.html directly using file://."
 
             );
 
@@ -853,7 +750,7 @@ villageInput.addEventListener(
 
 
 /* =========================================================
-   DRAW PHOTO
+   PHOTO DRAWING
 ========================================================= */
 
 function drawPhotoContain(){
@@ -968,7 +865,7 @@ function drawPhotoContain(){
 
 
 /* =========================================================
-   DRAW NAME
+   NAME
 ========================================================= */
 
 function drawName(){
@@ -998,15 +895,12 @@ function drawName(){
 
 
     /*
-       Automatically reduce font
-       if name is too long.
+       Automatically shrink long names.
     */
 
     while(
 
-        ctx.measureText(
-            name
-        ).width >
+        ctx.measureText(name).width >
         NAME_POSITION.maxWidth
 
         &&
@@ -1055,7 +949,7 @@ function drawName(){
 
 
 /* =========================================================
-   DRAW VILLAGE
+   VILLAGE
 ========================================================= */
 
 function drawVillage(){
@@ -1070,10 +964,6 @@ function drawVillage(){
 
     ctx.save();
 
-
-    /*
-       Mogra font
-    */
 
     ctx.font =
         `35px "Mogra", Arial, sans-serif`;
@@ -1171,9 +1061,7 @@ function redraw(){
 
     drawPhotoContain();
 
-
     drawVillage();
-
 
     drawName();
 
@@ -1181,7 +1069,7 @@ function redraw(){
 
 
 /* =========================================================
-   DOWNLOAD POSTER IMAGE
+   DOWNLOAD IMAGE
 ========================================================= */
 
 downloadPoster.addEventListener(
@@ -1213,9 +1101,7 @@ downloadPoster.addEventListener(
 
 
                 const a =
-                    document.createElement(
-                        "a"
-                    );
+                    document.createElement("a");
 
 
                 a.href =
@@ -1277,7 +1163,7 @@ async function loadAudio(){
 
         throw new Error(
 
-            "audio.mp3 not found. " +
+            "audio.mp3 not found.\n\n" +
 
             "Put audio.mp3 beside index.html."
 
@@ -1298,7 +1184,7 @@ async function loadAudio(){
     if(!AudioContextClass){
 
         throw new Error(
-            "Your browser does not support Web Audio."
+            "Web Audio is not supported by this browser."
         );
 
     }
@@ -1326,13 +1212,7 @@ async function loadAudio(){
 
 
 /* =========================================================
-   CONVERT URL TO BLOB URL
-=========================================================
-
-   This replaces @ffmpeg/util's toBlobURL().
-
-   Therefore the problematic @ffmpeg/util library
-   is completely removed.
+   CREATE LOCAL BLOB URL
 ========================================================= */
 
 async function makeBlobURL(
@@ -1353,7 +1233,7 @@ async function makeBlobURL(
 
         throw new Error(
 
-            "Could not load FFmpeg file:\n" +
+            "Could not load FFmpeg file:\n\n" +
             url
 
         );
@@ -1361,13 +1241,13 @@ async function makeBlobURL(
     }
 
 
+    const data =
+        await response.arrayBuffer();
+
+
     const blob =
-        await response.blob();
-
-
-    const typedBlob =
         new Blob(
-            [blob],
+            [data],
             {
                 type:mimeType
             }
@@ -1375,7 +1255,7 @@ async function makeBlobURL(
 
 
     return URL.createObjectURL(
-        typedBlob
+        blob
     );
 
 }
@@ -1383,6 +1263,21 @@ async function makeBlobURL(
 
 /* =========================================================
    LOAD FFMPEG
+=========================================================
+
+   IMPORTANT FIX:
+
+   DO NOT load:
+
+   ffmpeg-core.worker.js
+
+   from @ffmpeg/core.
+
+   The single-threaded core package does not provide
+   that worker file.
+
+   Instead we load 814.ffmpeg.js from the main
+   @ffmpeg/ffmpeg package using workerLoadURL.
 ========================================================= */
 
 async function loadFFmpeg(){
@@ -1391,18 +1286,13 @@ async function loadFFmpeg(){
         return;
 
 
-    /*
-       Check FFmpeg main library.
-    */
-
     if(
-        typeof FFmpegWASM ===
-        "undefined"
+        typeof FFmpegWASM === "undefined"
     ){
 
         throw new Error(
 
-            "FFmpeg library did not load.\n\n" +
+            "FFmpeg main library did not load.\n\n" +
 
             "Please check your internet connection."
 
@@ -1412,7 +1302,7 @@ async function loadFFmpeg(){
 
 
     progressText.innerText =
-        "MP4 converter loading...";
+        "FFmpeg converter loading...";
 
 
     ffmpegStatus.innerText =
@@ -1435,9 +1325,7 @@ async function loadFFmpeg(){
 
     ffmpeg.on(
         "log",
-        function({
-            message
-        }){
+        function({message}){
 
             console.log(
                 "FFmpeg:",
@@ -1454,16 +1342,11 @@ async function loadFFmpeg(){
 
     ffmpeg.on(
         "progress",
-        function({
-            progress
-        }){
+        function({progress}){
 
             if(
-
                 progress >= 0 &&
-
                 progress <= 1
-
             ){
 
                 const percent =
@@ -1482,10 +1365,22 @@ async function loadFFmpeg(){
 
 
     /*
-       FFmpeg core location.
+       IMPORTANT:
+
+       Main FFmpeg package.
     */
 
-    const baseURL =
+    const ffmpegBaseURL =
+        "https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd";
+
+
+    /*
+       Single-thread FFmpeg core.
+
+       Do NOT add workerURL here.
+    */
+
+    const coreBaseURL =
         "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd";
 
 
@@ -1494,16 +1389,27 @@ async function loadFFmpeg(){
 
 
     /*
-       Create local Blob URLs.
+       Load the three required files.
 
-       This avoids the @ffmpeg/util problem
-       AND avoids cross-origin worker problems.
+       1. 814.ffmpeg.js = worker loader
+       2. ffmpeg-core.js = FFmpeg core
+       3. ffmpeg-core.wasm = WebAssembly binary
     */
+
+    const workerLoadURL =
+        await makeBlobURL(
+
+            `${ffmpegBaseURL}/814.ffmpeg.js`,
+
+            "text/javascript"
+
+        );
+
 
     const coreURL =
         await makeBlobURL(
 
-            `${baseURL}/ffmpeg-core.js`,
+            `${coreBaseURL}/ffmpeg-core.js`,
 
             "text/javascript"
 
@@ -1513,47 +1419,36 @@ async function loadFFmpeg(){
     const wasmURL =
         await makeBlobURL(
 
-            `${baseURL}/ffmpeg-core.wasm`,
+            `${coreBaseURL}/ffmpeg-core.wasm`,
 
             "application/wasm"
 
         );
 
 
-    const workerURL =
-        await makeBlobURL(
+    /*
+       THIS IS THE IMPORTANT FIX.
 
-            `${baseURL}/ffmpeg-core.worker.js`,
+       workerLoadURL is used.
 
-            "text/javascript"
+       workerURL is NOT used.
+    */
 
-        );
+    await ffmpeg.load({
 
+        workerLoadURL:
 
-    try{
+            workerLoadURL,
 
-        await ffmpeg.load({
+        coreURL:
 
-            coreURL:
-                coreURL,
+            coreURL,
 
-            wasmURL:
-                wasmURL,
+        wasmURL:
 
-            workerURL:
-                workerURL
+            wasmURL
 
-        });
-
-    }
-    finally{
-
-        /*
-           Blob URLs are kept while FFmpeg
-           is running. Do not revoke them here.
-        */
-
-    }
+    });
 
 
     ffmpegLoaded =
@@ -1571,20 +1466,20 @@ async function loadFFmpeg(){
 
 
 /* =========================================================
-   CHOOSE VIDEO FORMAT
+   SUPPORTED VIDEO FORMAT
 ========================================================= */
 
 function getSupportedMimeType(){
 
     const types = [
 
+        "video/mp4",
+
         "video/webm;codecs=vp9,opus",
 
         "video/webm;codecs=vp8,opus",
 
-        "video/webm",
-
-        "video/mp4"
+        "video/webm"
 
     ];
 
@@ -1608,7 +1503,7 @@ function getSupportedMimeType(){
 
     throw new Error(
 
-        "Your browser does not support video recording."
+        "This browser does not support video recording."
 
     );
 
@@ -1616,7 +1511,7 @@ function getSupportedMimeType(){
 
 
 /* =========================================================
-   RECORD WEBM
+   RECORD VIDEO
 ========================================================= */
 
 async function recordWebM(){
@@ -1629,17 +1524,15 @@ async function recordWebM(){
 
 
     /*
-       Canvas video.
+       Canvas stream.
     */
 
     const canvasStream =
-        canvas.captureStream(
-            15
-        );
+        canvas.captureStream(15);
 
 
     /*
-       Audio recording stream.
+       Audio destination.
     */
 
     const audioDestination =
@@ -1697,7 +1590,11 @@ async function recordWebM(){
 
 
     /*
-       Find supported browser format.
+       Choose format.
+
+       Safari may choose MP4.
+
+       Chrome/Firefox may choose WebM.
     */
 
     const mimeType =
@@ -1711,14 +1608,11 @@ async function recordWebM(){
 
             {
 
-                mimeType:
-                    mimeType,
+                mimeType:mimeType,
 
-                videoBitsPerSecond:
-                    1800000,
+                videoBitsPerSecond:1800000,
 
-                audioBitsPerSecond:
-                    128000
+                audioBitsPerSecond:128000
 
             }
 
@@ -1763,17 +1657,13 @@ async function recordWebM(){
        Start recording.
     */
 
-    recorder.start(
-        1000
-    );
+    recorder.start(1000);
 
 
     await audioContext.resume();
 
 
-    audioSource.start(
-        0
-    );
+    audioSource.start(0);
 
 
     const startTime =
@@ -1781,7 +1671,7 @@ async function recordWebM(){
 
 
     /*
-       30 SECOND TIMER.
+       30 seconds.
     */
 
     await new Promise(
@@ -1815,7 +1705,6 @@ async function recordWebM(){
 
 
                 progressText.innerText =
-
                     `Poster video બનાવાઈ રહ્યું છે... ${Math.floor(percent)}%`;
 
 
@@ -1853,17 +1742,11 @@ async function recordWebM(){
         audioSource.stop();
 
     }
-    catch(error){
-
-        console.log(
-            "Audio already stopped."
-        );
-
-    }
+    catch(error){}
 
 
     /*
-       Stop recorder.
+       Stop recording.
     */
 
     recorder.stop();
@@ -1873,7 +1756,7 @@ async function recordWebM(){
 
 
     /*
-       Stop streams.
+       Stop tracks.
     */
 
     combinedStream
@@ -1903,35 +1786,36 @@ async function recordWebM(){
         await audioContext.close();
 
     }
-    catch(error){
-
-        console.log(
-            "AudioContext close warning:",
-            error
-        );
-
-    }
+    catch(error){}
 
 
-    return new Blob(
+    return {
 
-        chunks,
+        blob:
 
-        {
-            type:mimeType
-        }
+            new Blob(
 
-    );
+                chunks,
+
+                {
+                    type:mimeType
+                }
+
+            ),
+
+        mimeType:mimeType
+
+    };
 
 }
 
 
 /* =========================================================
-   WEBM → REAL MP4
+   CONVERT TO MP4
 ========================================================= */
 
 async function convertToMP4(
-    webmBlob
+    recordedVideo
 ){
 
     await loadFFmpeg();
@@ -1946,24 +1830,36 @@ async function convertToMP4(
 
 
     /*
-       Convert Blob to Uint8Array.
+       Convert recording to Uint8Array.
     */
 
     const inputData =
         new Uint8Array(
 
-            await webmBlob.arrayBuffer()
+            await recordedVideo.blob.arrayBuffer()
 
         );
 
 
     /*
-       Write input file.
+       Determine input extension.
+    */
+
+    const inputName =
+        recordedVideo.mimeType.includes("mp4")
+
+            ? "input.mp4"
+
+            : "input.webm";
+
+
+    /*
+       Write input.
     */
 
     await ffmpeg.writeFile(
 
-        "input.webm",
+        inputName,
 
         inputData
 
@@ -1971,11 +1867,7 @@ async function convertToMP4(
 
 
     /*
-       Convert WebM → H.264 MP4.
-
-       AAC audio.
-
-       Fast start for phones.
+       Convert to H.264 + AAC MP4.
     */
 
     const exitCode =
@@ -1983,7 +1875,7 @@ async function convertToMP4(
 
             "-i",
 
-            "input.webm",
+            inputName,
 
 
             "-c:v",
@@ -2040,7 +1932,7 @@ async function convertToMP4(
 
 
     /*
-       Read final MP4.
+       Read output.
     */
 
     const outputData =
@@ -2050,13 +1942,13 @@ async function convertToMP4(
 
 
     /*
-       Clean temporary files.
+       Clean files.
     */
 
     try{
 
         await ffmpeg.deleteFile(
-            "input.webm"
+            inputName
         );
 
     }
@@ -2074,7 +1966,7 @@ async function convertToMP4(
 
 
     /*
-       Return actual MP4 Blob.
+       Return final MP4.
     */
 
     return new Blob(
@@ -2091,7 +1983,7 @@ async function convertToMP4(
 
 
 /* =========================================================
-   DOWNLOAD BLOB
+   DOWNLOAD
 ========================================================= */
 
 function downloadBlob(
@@ -2106,9 +1998,7 @@ function downloadBlob(
 
 
     const a =
-        document.createElement(
-            "a"
-        );
+        document.createElement("a");
 
 
     a.href =
@@ -2151,7 +2041,7 @@ function downloadBlob(
 async function createVideo(){
 
     /*
-       Photo check.
+       Check photo.
     */
 
     if(!userPhoto){
@@ -2166,7 +2056,7 @@ async function createVideo(){
 
 
     /*
-       Name check.
+       Check name.
     */
 
     if(
@@ -2183,7 +2073,7 @@ async function createVideo(){
 
 
     /*
-       Village check.
+       Check village.
     */
 
     if(
@@ -2222,7 +2112,7 @@ async function createVideo(){
     try{
 
         /*
-           Make sure Mogra is loaded.
+           Load Mogra.
         */
 
         await loadMograFont();
@@ -2236,10 +2126,7 @@ async function createVideo(){
 
 
         /*
-           Test canvas.
-
-           If this fails, poster image is
-           cross-origin/tainted.
+           Check canvas security.
         */
 
         try{
@@ -2249,15 +2136,15 @@ async function createVideo(){
             );
 
         }
-        catch(canvasError){
+        catch(error){
 
             throw new Error(
 
                 "Canvas security error.\n\n" +
 
-                "Please open the GitHub Pages HTTPS URL, " +
+                "Please use the GitHub Pages HTTPS URL, " +
 
-                "not the file:// index.html."
+                "not file://."
 
             );
 
@@ -2265,19 +2152,22 @@ async function createVideo(){
 
 
         /*
-           STEP 1:
-           Poster + audio → WebM.
+           STEP 1
+
+           Create 30-second video.
         */
 
-        const webmBlob =
+        const recordedVideo =
             await recordWebM();
 
 
         if(
 
-            !webmBlob ||
+            !recordedVideo ||
 
-            webmBlob.size === 0
+            !recordedVideo.blob ||
+
+            recordedVideo.blob.size === 0
 
         ){
 
@@ -2291,13 +2181,14 @@ async function createVideo(){
 
 
         /*
-           STEP 2:
-           WebM → MP4.
+           STEP 2
+
+           Convert to real MP4.
         */
 
         const mp4Blob =
             await convertToMP4(
-                webmBlob
+                recordedVideo
             );
 
 
@@ -2319,8 +2210,9 @@ async function createVideo(){
 
 
         /*
-           STEP 3:
-           Download MP4.
+           STEP 3
+
+           Download.
         */
 
         progressFill.style.width =
@@ -2357,13 +2249,7 @@ async function createVideo(){
 
             "MP4 download error:\n\n" +
 
-            error.message +
-
-            "\n\n" +
-
-            "Please check that poster.jpg and audio.mp3 " +
-
-            "are in the same GitHub Pages folder."
+            error.message
 
         );
 
@@ -2394,7 +2280,7 @@ async function createVideo(){
 
 
 /* =========================================================
-   VIDEO BUTTON
+   BUTTON
 ========================================================= */
 
 downloadVideo.addEventListener(
@@ -2404,7 +2290,7 @@ downloadVideo.addEventListener(
 
 
 /* =========================================================
-   START WEBSITE
+   START
 ========================================================= */
 
 (async function(){
@@ -2434,4 +2320,5 @@ downloadVideo.addEventListener(
 </script>
 
 </body>
+
 </html>
